@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="user_cancelled">User denied screen sharing permission</string>
+    <string name="app_name">ScreenCapture</string>
+    <string name="intro_message">This sample demonstrates how to use Media Projection API introduced in Android 5.0 Lollipop. Press
+"Start" to start capturing the screen.</string>
+    <string name="sample_show_log">Show Log</string>
+    <string name="sample_hide_log">Hide Log</string>
+
+    <string name="chathead_content_title">Demo Chat: Active</string>
+    <string name="content_text">Demo running.</string>
+    <string name="mail_content_title">Demo Customize: active</string>
+    <string name="chathead_click_message">Click</string>
+    <string name="delete_demo">Delete Demo</string>
+    <string name="show_demo">Show Simple FloatingView</string>
+    <string name="show_customized_demo">Show Customized FloatingView</string>
+    <string name="show_settings">Initial Settings</string>
+    <string name="permission_denied">Overlay permission not granted.</string>
+    <string name="mail_address">example@example.com</string>
+    <string name="mail_title">Title</string>
+    <string name="mail_content">Message</string>
+    <string name="touch_finished_position" formatted="false">Current position (%d,%d)</string>
+    <string name="deleted_soon">FloatingView will be deleted soon.</string>
+    <string name="finish_deleted">FloatingView has been deleted.</string>
+    <string name="default_floatingview_channel_id">default_floatingview_channel</string>
+    <string name="default_floatingview_channel_name">Default Channel</string>
+</resources>
