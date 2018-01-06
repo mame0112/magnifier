@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="OriginalView">
+        <attr name="hoge_int" format="integer" />
+        <attr name="fuga_color" format="color" />
+        <attr name="moge_str" format="string" />
+
+        <attr name="foo" format="color|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="originalViewStyle" format="reference" />
+    </declare-styleable>
+</resources>
