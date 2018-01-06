@@ -39,12 +39,12 @@ public class ScreenCaptureFragment extends Fragment implements View.OnClickListe
     private int mResultCode;
     private Intent mResultData;
 
-    private Surface mSurface;
-    private MediaProjection mMediaProjection;
-    private VirtualDisplay mVirtualDisplay;
-    private MediaProjectionManager mMediaProjectionManager;
+//    private Surface mSurface;
+//    private MediaProjection mMediaProjection;
+//    private VirtualDisplay mVirtualDisplay;
+//    private MediaProjectionManager mMediaProjectionManager;
     private Button mButtonToggle;
-    private SurfaceView mSurfaceView;
+//    private SurfaceView mSurfaceView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class ScreenCaptureFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mSurfaceView = (SurfaceView) view.findViewById(R.id.surface);
-        mSurface = mSurfaceView.getHolder().getSurface();
+//        mSurfaceView = (SurfaceView) view.findViewById(R.id.surface);
+//        mSurface = mSurfaceView.getHolder().getSurface();
         mButtonToggle = (Button) view.findViewById(R.id.toggle);
         mButtonToggle.setOnClickListener(this);
     }
@@ -76,8 +76,8 @@ public class ScreenCaptureFragment extends Fragment implements View.OnClickListe
         DisplayMetrics metrics = new DisplayMetrics();
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         mScreenDensity = metrics.densityDpi;
-        mMediaProjectionManager = (MediaProjectionManager)
-                activity.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+//        mMediaProjectionManager = (MediaProjectionManager)
+//                activity.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
     }
 
     @Override
@@ -93,11 +93,11 @@ public class ScreenCaptureFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.toggle:
-                if (mVirtualDisplay == null) {
-                    startScreenCapture();
-                } else {
-                    stopScreenCapture();
-                }
+//                if (mVirtualDisplay == null) {
+//                    startScreenCapture();
+//                } else {
+//                    stopScreenCapture();
+//                }
                 break;
         }
     }
@@ -135,53 +135,53 @@ public class ScreenCaptureFragment extends Fragment implements View.OnClickListe
     }
 
     private void setUpMediaProjection() {
-        mMediaProjection = mMediaProjectionManager.getMediaProjection(mResultCode, mResultData);
+//        mMediaProjection = mMediaProjectionManager.getMediaProjection(mResultCode, mResultData);
     }
 
     private void tearDownMediaProjection() {
-        if (mMediaProjection != null) {
-            mMediaProjection.stop();
-            mMediaProjection = null;
-        }
+//        if (mMediaProjection != null) {
+//            mMediaProjection.stop();
+//            mMediaProjection = null;
+//        }
     }
 
     private void startScreenCapture() {
-        Activity activity = getActivity();
-        if (mSurface == null || activity == null) {
-            return;
-        }
-        if (mMediaProjection != null) {
-            setUpVirtualDisplay();
-        } else if (mResultCode != 0 && mResultData != null) {
-            setUpMediaProjection();
-            setUpVirtualDisplay();
-        } else {
-            Log.i(TAG, "Requesting confirmation");
-            // This initiates a prompt dialog for the user to confirm screen projection.
-            startActivityForResult(
-                    mMediaProjectionManager.createScreenCaptureIntent(),
-                    REQUEST_MEDIA_PROJECTION);
-        }
+//        Activity activity = getActivity();
+//        if (mSurface == null || activity == null) {
+//            return;
+//        }
+//        if (mMediaProjection != null) {
+//            setUpVirtualDisplay();
+//        } else if (mResultCode != 0 && mResultData != null) {
+//            setUpMediaProjection();
+//            setUpVirtualDisplay();
+//        } else {
+//            Log.i(TAG, "Requesting confirmation");
+//            // This initiates a prompt dialog for the user to confirm screen projection.
+//            startActivityForResult(
+//                    mMediaProjectionManager.createScreenCaptureIntent(),
+//                    REQUEST_MEDIA_PROJECTION);
+//        }
     }
 
     private void setUpVirtualDisplay() {
-        Log.i(TAG, "Setting up a VirtualDisplay: " +
-                mSurfaceView.getWidth() + "x" + mSurfaceView.getHeight() +
-                " (" + mScreenDensity + ")");
-        mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture",
-                mSurfaceView.getWidth(), mSurfaceView.getHeight(), mScreenDensity,
-                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-                mSurface, null, null);
-        mButtonToggle.setText(R.string.stop);
+//        Log.i(TAG, "Setting up a VirtualDisplay: " +
+//                mSurfaceView.getWidth() + "x" + mSurfaceView.getHeight() +
+//                " (" + mScreenDensity + ")");
+//        mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture",
+//                mSurfaceView.getWidth(), mSurfaceView.getHeight(), mScreenDensity,
+//                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+//                mSurface, null, null);
+//        mButtonToggle.setText(R.string.stop);
     }
 
     private void stopScreenCapture() {
-        if (mVirtualDisplay == null) {
-            return;
-        }
-        mVirtualDisplay.release();
-        mVirtualDisplay = null;
-        mButtonToggle.setText(R.string.start);
+//        if (mVirtualDisplay == null) {
+//            return;
+//        }
+//        mVirtualDisplay.release();
+//        mVirtualDisplay = null;
+//        mButtonToggle.setText(R.string.start);
     }
 
 }

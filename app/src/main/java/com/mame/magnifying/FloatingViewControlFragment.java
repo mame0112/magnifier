@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mame.magnifying.service.ChatHeadService;
+import com.mame.magnifying.util.LogUtil;
 
 
 /**
@@ -54,6 +55,7 @@ public class FloatingViewControlFragment extends Fragment {
      * コンストラクタ
      */
     public FloatingViewControlFragment() {
+        LogUtil.d(TAG, "FloatingViewControlFragment");
         // Required empty public constructor
     }
 
@@ -62,6 +64,7 @@ public class FloatingViewControlFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        LogUtil.d(TAG, "onCreateView");
         final View rootView = inflater.inflate(R.layout.fragment_floating_view_control, container, false);
         // デモの表示
         rootView.findViewById(R.id.show_demo).setOnClickListener(new View.OnClickListener() {
@@ -97,6 +100,7 @@ public class FloatingViewControlFragment extends Fragment {
     @Override
     @TargetApi(Build.VERSION_CODES.M)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtil.d(TAG, "onActivityResult");
         if (requestCode == CHATHEAD_OVERLAY_PERMISSION_REQUEST_CODE) {
             showChatHead(getActivity(), false);
         }
@@ -113,6 +117,7 @@ public class FloatingViewControlFragment extends Fragment {
      */
     @SuppressLint("NewApi")
     private void showChatHead(Context context, boolean isShowOverlayPermission) {
+        LogUtil.d(TAG, "showChatHead");
         // API22以下かチェック
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
             final Intent intent = new Intent(context, ChatHeadService.class);

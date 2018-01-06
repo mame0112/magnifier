@@ -5,6 +5,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.media.projection.MediaProjection;
+import android.media.projection.MediaProjectionManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,20 +14,37 @@ import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import android.widget.ViewAnimator;
 
 import com.mame.magnifying.logger.Log;
 import com.mame.magnifying.logger.LogFragment;
 import com.mame.magnifying.logger.LogWrapper;
 import com.mame.magnifying.logger.MessageOnlyLogFilter;
+import com.mame.magnifying.util.LogUtil;
+
+import java.io.Serializable;
 
 public class MainActivity extends SampleActivityBase {
     public static final String TAG = "MainActivity";
 
     // Whether the Log Fragment is currently shown
     private boolean mLogShown;
+
+    private static final String STATE_RESULT_CODE = "result_code";
+    private static final String STATE_RESULT_DATA = "result_data";
+
+    private static final int REQUEST_MEDIA_PROJECTION = 1;
+
+    private int mResultCode;
+    private Intent mResultData;
+
+    private MediaProjectionManager mMediaProjectionManager;
+
+    private MediaProjection mMediaProjection;
 
     @RequiresApi(api = 26)
     @Override
@@ -38,6 +57,11 @@ public class MainActivity extends SampleActivityBase {
             ScreenCaptureFragment fragment = new ScreenCaptureFragment();
             transaction.replace(R.id.sample_content_fragment, fragment);
             transaction.commit();
+        }
+
+        if (savedInstanceState != null) {
+            mResultCode = savedInstanceState.getInt(STATE_RESULT_CODE);
+            mResultData = savedInstanceState.getParcelable(STATE_RESULT_DATA);
         }
 
         // create default notification channel
@@ -57,8 +81,63 @@ public class MainActivity extends SampleActivityBase {
             ft.commit();
         }
 
-        startService(new Intent(getApplicationContext(), ChatHeadService.class));
+        mMediaProjectionManager = (MediaProjectionManager)
+                getSystemService(Context.MEDIA_PROJECTION_SERVICE);
+
+        startActivityForResult(mMediaProjectionManager.createScreenCaptureIntent(),
+                    REQUEST_MEDIA_PROJECTION);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (mResultData != null) {
+            outState.putInt(STATE_RESULT_CODE, mResultCode);
+            outState.putParcelable(STATE_RESULT_DATA, mResultData);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        LogUtil.d(TAG, "onActivityResult: " + requestCode);
+        if (requestCode == REQUEST_MEDIA_PROJECTION) {
+            LogUtil.d(TAG, "A");
+            if (resultCode != RESULT_OK) {
+                Log.i(TAG, "User cancelled");
+                Toast.makeText(this, R.string.user_cancelled, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            Log.i(TAG, "Starting screen capture");
+            mResultCode = resultCode;
+            mResultData = data;
+            mMediaProjection = mMediaProjectionManager.getMediaProjection(mResultCode, mResultData);
+            // Start Chathead service
+//            Intent intent = new Intent(getApplicationContext(), ChatHeadService.class);
+//            OriginalMediaProjectionManager originalProjectionManager = new OriginalMediaProjectionManager(mMediaProjectionManager);
+//            intent.putExtra("projection_manager", originalProjectionManager);
+//            startService(intent);
+
+            LogUtil.d(TAG, "startService");
+
+//            Intent intent = new Intent(this, ChatHeadService.class);
+//            OriginalMediaProjectionManager2 originalProjectionManager = new OriginalMediaProjectionManager2(mMediaProjectionManager);
+//            intent.putExtra("projection_manager", originalProjectionManager);
+//            startService(intent);
+
+
+//            Intent intent2 = new Intent(getApplicationContext(), com.mame.magnifying.service.ChatHeadService.class);
+//            OriginalMediaProjectionManager2 originalProjectionManager = new OriginalMediaProjectionManager2(mMediaProjection);
+//            intent2.putExtra("media_projection", originalProjectionManager);
+//            ContextCompat.startForegroundService(getApplicationContext(), intent2);
+
+            OriginalMediaProjectionManager3.getInstance().setMediaProjection(mMediaProjection);
+
+            Intent intent2 = new Intent(getApplicationContext(), com.mame.magnifying.service.ChatHeadService.class);
+            ContextCompat.startForegroundService(getApplicationContext(), intent2);
+
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

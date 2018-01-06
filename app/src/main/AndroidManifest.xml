@@ -35,7 +35,10 @@
         <!-- デモ表示サービス -->
         <service
             android:name="com.mame.magnifying.service.ChatHeadService"
-            android:exported="false"/>
+            android:exported="true"/>
+        <!--<service-->
+            <!--android:name="com.mame.magnifying.ChatHeadService"-->
+            <!--android:exported="true"/>-->
 
     </application>
 

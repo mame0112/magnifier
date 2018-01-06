@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <SurfaceView
-        android:id="@+id/surface"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_weight="1"/>
+    <!--<SurfaceView-->
+        <!--android:id="@+id/surface"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_weight="1"/>-->
 
     <Button
         android:id="@+id/toggle"
