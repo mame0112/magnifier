@@ -6,15 +6,18 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.hardware.display.DisplayManager;
 import android.hardware.display.VirtualDisplay;
 import android.media.projection.MediaProjection;
 import android.media.projection.MediaProjectionManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -114,25 +117,18 @@ public class ChatHeadService  extends Service implements FloatingViewListener, S
 //                activity.getSystemService(Context.MEDIA_PROJECTION_SERVICE);
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//        mSurfaceView = (CustomSurfaceView) inflater.inflate(R.layout.widget_chathead, null);
-//        mSurfaceView = (CustomSurfaceView) inflater.inflate(R.layout.widget_chathead, null);
         mSurfaceView = (SurfaceView) inflater.inflate(R.layout.widget_chathead, null);
 //        mSurfaceView.setCustomSurfaceViewListner(this);
-        mSurfaceView.setMinimumWidth(200);
-        mSurfaceView.setMinimumHeight(200);
+//        mSurfaceView.setMinimumWidth(200);
+//        mSurfaceView.setMinimumHeight(200);
 
-//        final LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-//        final LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        mSurfaceView = (ImageView)inflater.inflate(R.layout.widget_chathead, null, false);
 
-//        View view = inflater.inflate(R.layout.widget_chathead, null);
-//        final LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        mSurfaceView = (SurfaceView) view.findViewById(R.id.surface);
-//        mSurfaceView = (ImageView) view.findViewById(R.id.surface);
-//        mSurfaceView = (SurfaceView) inflater.inflate(R.layout.widget_chathead, null, false);
 
         LogUtil.d(TAG, "SurfaceView size: " + mSurfaceView.getWidth() + " / " + mSurfaceView.getHeight());
-        mSurfaceView.getHolder().setFixedSize(300, 300);
+//        mSurfaceView.getHolder().setFixedSize(300, 300);
+        Point p = getRealSize(windowManager);
+//        mSurfaceView.getHolder().setFixedSize(p.x, p.y);
+        mSurfaceView.getHolder().setFixedSize(200, 200);
         mSurfaceView.getHolder().addCallback(this);
 //        mSurface = mSurfaceView.getHolder().getSurface();
         LogUtil.d(TAG, "SurfaceView size: " + mSurfaceView.getWidth() + " / " + mSurfaceView.getHeight());
@@ -145,6 +141,7 @@ public class ChatHeadService  extends Service implements FloatingViewListener, S
         mFloatingViewManager.setActionTrashIconImage(R.drawable.ic_trash_action);
         final FloatingViewManager.Options options = new FloatingViewManager.Options();
         options.overMargin = (int) (16 * metrics.density);
+
         //TODO
         options.floatingViewHeight = 300;
         options.floatingViewWidth = 300;
@@ -278,8 +275,12 @@ public class ChatHeadService  extends Service implements FloatingViewListener, S
                 DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                 mSurface, null, null);
 //        mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture",
-//                mSurfaceView.getMeasuredWidth(), mSurfaceView.getMeasuredHeight(), mScreenDensity,
+//                300, 300, mScreenDensity,
 //                DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+//                mSurface, null, null);
+//        mVirtualDisplay = mMediaProjection.createVirtualDisplay("ScreenCapture",
+//                300, 300, mScreenDensity,
+//                DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY,
 //                mSurface, null, null);
 //        mButtonToggle.setText(R.string.stop);
     }
@@ -317,5 +318,23 @@ public class ChatHeadService  extends Service implements FloatingViewListener, S
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
         LogUtil.d(TAG, "surfaceDestroyed");
+    }
+
+    private Point getRealSize(WindowManager wm) {
+
+        Display display = wm.getDefaultDisplay();
+        Point point = new Point(0, 0);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            // Android 4.2~
+            display.getRealSize(point);
+            LogUtil.d(TAG, "Display size: " + "x: " + point.x + " y: " + point.y);
+            return point;
+
+        } else {
+            LogUtil.d(TAG, "Android vdrsion is too old");
+        }
+
+        return point;
     }
 }

@@ -135,6 +135,8 @@ public class MainActivity extends SampleActivityBase {
             Intent intent2 = new Intent(getApplicationContext(), com.mame.magnifying.service.ChatHeadService.class);
             ContextCompat.startForegroundService(getApplicationContext(), intent2);
 
+            finish();
+
         }
     }
 
