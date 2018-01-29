@@ -1,19 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<com.mame.magnifying.CustomSurfaceView-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:original="http://schemas.android.com/apk/res-auto"-->
-    <!--android:id="@+id/surface"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"/>-->
 <SurfaceView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/surface"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 <!--<ImageView-->
+    <!--android:id="@+id/info_text"-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--android:id="@+id/surface"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:padding="8dp"-->
     <!--android:src="@drawable/ic_sample" />-->
+<!--<ImageView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/surface"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:src="@drawable/ic_sample" />-->
+<!--<LinearLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="@color/red"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:id="@+id/widget_chathead_frame">-->
+    <!--<ImageView-->
+        <!--android:id="@+id/surface"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:padding="8dp"-->
+        <!--android:src="@drawable/ic_sample" />-->
+    <!--<Button-->
+        <!--android:id="@+id/widget_button"-->
+        <!--android:text="Button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+<!--</LinearLayout>-->
+
+    <!--<ImageView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/surface"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/ic_sample" />-->
+
+    <!--<com.mame.magnifying.CustomSurfaceView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:original="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/surface"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+<!--<SurfaceView-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/surface"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"/>-->
+
